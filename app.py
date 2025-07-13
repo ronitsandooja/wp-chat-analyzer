@@ -6,9 +6,9 @@ import seaborn as sns
 
 st.set_page_config(page_title="WhatsApp Chat Analyzer", layout="wide")
 
-st.sidebar.title("📱 WhatsApp Chat Analyzer")
+st.sidebar.title("WhatsApp Chat Analyzer")
 
-uploaded_file = st.sidebar.file_uploader("📂 Choose a chat text file (.txt)", type="txt")
+uploaded_file = st.sidebar.file_uploader("Choose a chat text file (.txt)", type="txt")
 
 if uploaded_file is not None:
     # Read and decode file
@@ -19,7 +19,7 @@ if uploaded_file is not None:
     df = preprocessor.preprocess(data)
 
     # Show preview
-    st.subheader("📋 Raw Chat Preview")
+    st.subheader("Raw Chat Preview")
     st.dataframe(df.head())
 
     # User list
@@ -27,11 +27,11 @@ if uploaded_file is not None:
     user_list.sort()
     user_list.insert(0, "Overall")
 
-    selected_user = st.sidebar.selectbox("🔍 Analyze chat for", user_list)
+    selected_user = st.sidebar.selectbox("Analyze chat for", user_list)
 
     if st.sidebar.button("Show Analysis"):
         # Top statistics
-        st.title("📊 Top Statistics")
+        st.title("Top Statistics")
         num_messages, words, num_media_messages, num_links = helper.fetch_stats(selected_user, df)
 
         col1, col2, col3, col4 = st.columns(4)
@@ -45,7 +45,7 @@ if uploaded_file is not None:
             st.metric("Links Shared", num_links)
 
         # Monthly timeline
-        st.title("🗓 Monthly Timeline")
+        st.title("Monthly Timeline")
         timeline = helper.monthly_timeline(selected_user, df)
         fig, ax = plt.subplots()
         ax.plot(timeline['time'], timeline['message'], color='green')
@@ -53,7 +53,7 @@ if uploaded_file is not None:
         st.pyplot(fig)
 
         # Daily timeline
-        st.title("📅 Daily Timeline")
+        st.title("Daily Timeline")
         daily_timeline = helper.daily_timeline(selected_user, df)
         fig, ax = plt.subplots()
         ax.plot(daily_timeline['only_date'], daily_timeline['message'], color='black')
@@ -61,11 +61,11 @@ if uploaded_file is not None:
         st.pyplot(fig)
 
         # Activity maps
-        st.title("📌 Activity Map")
+        st.title("Activity Map")
         col1, col2 = st.columns(2)
 
         with col1:
-            st.markdown("**Most Busy Days**")
+            st.markdown("Most Busy Days")
             busy_day = helper.week_activity_map(selected_user, df)
             fig, ax = plt.subplots()
             ax.bar(busy_day.index, busy_day.values, color='purple')
@@ -73,7 +73,7 @@ if uploaded_file is not None:
             st.pyplot(fig)
 
         with col2:
-            st.markdown("**Most Busy Months**")
+            st.markdown("Most Busy Months")
             busy_month = helper.month_activity_map(selected_user, df)
             fig, ax = plt.subplots()
             ax.bar(busy_month.index, busy_month.values, color='orange')
@@ -81,7 +81,7 @@ if uploaded_file is not None:
             st.pyplot(fig)
 
         # Heatmap
-        st.title("📊 Weekly Activity Heatmap")
+        st.title("Weekly Activity Heatmap")
         user_heatmap = helper.activity_heatmap(selected_user, df)
         fig, ax = plt.subplots(figsize=(12, 6))
         sns.heatmap(user_heatmap, cmap="YlGnBu", ax=ax)
@@ -89,7 +89,7 @@ if uploaded_file is not None:
 
         # Most busy users
         if selected_user == "Overall":
-            st.title("🙋 Most Active Users")
+            st.title("Most Active Users")
             x, new_df = helper.most_busy_users(df)
             col1, col2 = st.columns(2)
             with col1:
@@ -101,7 +101,7 @@ if uploaded_file is not None:
                 st.dataframe(new_df)
 
         # Wordcloud
-        st.title("☁️ Word Cloud")
+        st.title("Word Cloud")
         df_wc = helper.create_wordcloud(selected_user, df)
         fig, ax = plt.subplots()
         ax.imshow(df_wc)
@@ -109,7 +109,7 @@ if uploaded_file is not None:
         st.pyplot(fig)
 
         # Most common words
-        st.title("🔠 Most Common Words")
+        st.title("Most Common Words")
         most_common_df = helper.most_common_words(selected_user, df)
         fig, ax = plt.subplots()
         ax.barh(most_common_df[0], most_common_df[1], color='teal')
@@ -132,4 +132,5 @@ if uploaded_file is not None:
                 st.write("No emojis found.")
 
 else:
-    st.markdown("👈 Upload a WhatsApp `.txt` file from your phone to begin.")
+    st.markdown("Upload a WhatsApp `.txt` file on left from your device to begin.")
+    st.markdown("(Must be in 24 hour format)")
