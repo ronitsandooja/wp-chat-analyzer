@@ -30,8 +30,8 @@ An interactive Streamlit app that analyzes WhatsApp chat exports and gives you d
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/ronitsandooja/wp-chat-analysis.git
-cd whatsapp-chat-analyzer
+git clone https://github.com/ronitsandooja/wp-chat-analyzer.git
+cd wp-chat-analyzer
 ````
 
 2. Install dependencies:
@@ -54,7 +54,6 @@ streamlit run app.py
 ├── app.py                # Main Streamlit app
 ├── helper.py             # All feature logic
 ├── preprocessor.py       # Parses and structures chat text
-├── stop_hinglish.txt     # Hindi-English stop words for filtering
 └── requirements.txt      # Python dependencies
 ```
 
