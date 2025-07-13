@@ -133,4 +133,4 @@ if uploaded_file is not None:
 
 else:
     st.markdown("Upload a WhatsApp `.txt` file on left from your device to begin.(Must be in 24 hour format)")
-    st.markdown("If in 12 hour format(AM/PM). Go to device seetings > Search for 24 hour format > Apply and download again")
+    st.markdown("If in 12 hour format(AM/PM).         Go to device seetings > Search for 24 hour format > Apply and download again")
